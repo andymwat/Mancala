@@ -4,6 +4,6 @@ class Board
 public:
 	Board();
 	~Board();
-	int spots[14];
+	int holes[14];
 };
 
