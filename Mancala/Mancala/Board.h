@@ -6,5 +6,6 @@ public:
 	~Board();
 	int holes[14];
 	void PrintBoard();
+	int MovePile(int, int);
 };
 
