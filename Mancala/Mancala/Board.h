@@ -7,5 +7,7 @@ public:
 	int holes[14];
 	void PrintBoard();
 	int MovePile(int, int);
+	double GetBoardValue(int);
+	bool GameIsOver();
 };
 

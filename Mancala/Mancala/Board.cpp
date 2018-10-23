@@ -108,11 +108,49 @@ int Board::MovePile(int slot, int player)
 		}
 	}
 
+	//if no pieces left on one side, return 2 (game is over)
+	if (GameIsOver())
+	{
+		return 2;
+	}
+
 	//if you finish in your mancala, you get another turn
 	if ((currentSlot == 0 && player ==2) || (currentSlot  == 7 && player ==1) )
 	{
 		return 1;
 	}
+	
 	return 0;
 }
+
+//Returns the value of the current board from the perspective of a specified player.
+//Returns between 1.0 and 0.0, with higher values corresponding to a more valuable board.
+//1.0 means the game is won or is guaranteed to be won, while 0.0 means that the game is guaranteed to be lost.
+double Board::GetBoardValue(int player)
+{
+	//TODO
+	throw "Not yet implemented";
+}
+
+//Returns whether or not the game is over.
+//If it is, it finishes up, moving the remaining pieces into the mancala.
+bool Board::GameIsOver()
+{
+	//Ugly, will need to refactor. 
+	//Checks to see if one side of the board is empty
+	if ((holes[1] == 0 && holes[2] == 0 && holes[3] == 0 && holes[4] == 0 && holes[5] == 0 && holes[6] == 0))
+	{
+		holes[0] += holes[13] + holes[12] + holes[11] + holes[10] + holes[9] + holes[8];
+		holes[13] = holes[12] = holes[11] = holes[10] = holes[9] = holes[8] = 0;
+		return true;
+	}
+	else if (holes[13] == 0 && holes[12] == 0 && holes[11] == 0 && holes[10] == 0 && holes[9] == 0 && holes[8] == 0)
+	{
+		holes[7] += holes[1] + holes[2] + holes[3] + holes[4] + holes[5] + holes[6];
+		holes[1] = holes[2] = holes[3] = holes[4] = holes[5] = holes[6] = 0;
+		return true;
+	}
+	return false;
+}
+
 
