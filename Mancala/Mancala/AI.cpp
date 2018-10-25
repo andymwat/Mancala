@@ -69,4 +69,41 @@ int AI::FindBestMove(Board& board, int player)
 	return -1;
 
 }
+//calculates a 1-level move tree from a given board and puts the resulting tree into result
+void AI::CalculateMoveTree(Board board, BoardNode* result, int player) {
+	result = new BoardNode(board, player);
+	//loop through possible moves on board
+	for (unsigned int i = (player*7)-6; i< (player*7); i++)
+	{
+		//create a copy of the current board
+		Board nextBoard = Board(board);
+		//see if the move is valid
+		int nextMove = nextBoard.MovePile(i,player);
+		if ( nextMove== -1)
+		{
+			//if move is invalid
+			continue;
+		}
+		if (nextMove == 0)
+		{
+			//if move is valid, add subBoard to tree
+			result->AddNode(new BoardNode(nextBoard, player));
+		}
+		if (nextMove == 1)
+		{
+			//TODO
+			//If move results in another turn
+			throw "Got another turn. Not yet implemented.";
+		}
+		if (nextMove == 2)
+		{
+			//TODO
+			//If move results in game over
+			throw "Game over. Not yet implemented.";
+		}
+	}
+
+
+
+}
 

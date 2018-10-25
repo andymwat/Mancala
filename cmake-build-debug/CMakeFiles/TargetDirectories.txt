@@ -1,0 +1,3 @@
+/home/andrew/Projects/Mancala/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/andrew/Projects/Mancala/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andrew/Projects/Mancala/cmake-build-debug/CMakeFiles/Mancala.dir

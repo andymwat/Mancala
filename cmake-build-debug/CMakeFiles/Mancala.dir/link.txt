@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Mancala.dir/Mancala/Mancala/AI.cpp.o CMakeFiles/Mancala.dir/Mancala/Mancala/Board.cpp.o CMakeFiles/Mancala.dir/Mancala/Mancala/Mancala.cpp.o CMakeFiles/Mancala.dir/Mancala/Mancala/pch.cpp.o CMakeFiles/Mancala.dir/Mancala/Mancala/MoveTree.cpp.o  -o Mancala 
