@@ -129,7 +129,35 @@ int Board::MovePile(int slot, int player)
 double Board::GetBoardValue(int player)
 {
 	//TODO
-	throw "Not yet implemented";
+	if (player == 1)
+	{
+		//if enemy slot is empty
+		if (holes[0] == 0)
+		{
+			//if yours is also empty
+			if (holes[7] == 0)
+			{
+				return 0.5;
+			}
+			return 0.75;
+		}
+		return ((double)holes[0] / holes[7]);
+	}
+	else if (player == 2)
+	{
+		//if enemy slot is empty
+		if (holes[7] == 0)
+		{
+			//if yours is also empty
+			if (holes[0] == 0)
+			{
+				return 0.5;
+			}
+			return 0.75;
+		}
+		return ((double)holes[7] / holes[0]);
+	}
+	
 }
 
 //Returns whether or not the game is over.
