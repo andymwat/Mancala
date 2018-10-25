@@ -4,5 +4,4 @@
 A collaboration between me and my brother.
 
 Planned features include:
-* Playing against an AI
-* The AI learning
+* An AI which calculates a tree of possible outcomes to pick a best move.
