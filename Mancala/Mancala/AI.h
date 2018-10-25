@@ -7,7 +7,6 @@ public:
 	AI();
 	~AI();
 	int FindBestMove(Board&, int);
-
-	void CalculateMoveTree(Board, BoardNode*, int);
+	int SearchMoveTree(Board&, int, int);
 };
 

@@ -141,7 +141,7 @@ double Board::GetBoardValue(int player)
 			}
 			return 0.75;
 		}
-		return ((double)holes[0] / holes[7]);
+		return ((double)holes[7] / holes[0]);
 	}
 	else if (player == 2)
 	{
@@ -155,7 +155,7 @@ double Board::GetBoardValue(int player)
 			}
 			return 0.75;
 		}
-		return ((double)holes[7] / holes[0]);
+		return ((double)holes[0] / holes[7]);
 	}
 	
 }

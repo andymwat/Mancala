@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AI.h"
+#include "MoveTree.h"
 #include <iostream>
 using namespace std;
 
@@ -33,7 +34,7 @@ int AI::FindBestMove(Board& board, int player)
 		}
 		if (bestPile == -1)
 		{
-			cout << "Error, no valid moves to take.";
+			cout << "Error, no valid moves to take."<<endl;
 			return -1;
 		}
 		cout << "Best move is " << bestPile << endl;
@@ -54,7 +55,7 @@ int AI::FindBestMove(Board& board, int player)
 		}
 		if (bestPile == -1)
 		{
-			cout << "Error, no valid moves to take.";
+			cout << "Error, no valid moves to take."<<endl;
 			return -1;
 		}
 		return bestPile;
@@ -69,41 +70,45 @@ int AI::FindBestMove(Board& board, int player)
 	return -1;
 
 }
-//calculates a 1-level move tree from a given board and puts the resulting tree into result
-void AI::CalculateMoveTree(Board board, BoardNode* result, int player) {
-	result = new BoardNode(board, player);
-	//loop through possible moves on board
-	for (unsigned int i = (player*7)-6; i< (player*7); i++)
+//returns the best move given the current board, what player the AI is, and a search depth
+int AI::SearchMoveTree(Board& currentBoard, int player, int depth)
+{
+	int bestPile = -1;
+	double bestOutcome = 0.0;
+	BoardNode * moveTree = new BoardNode(currentBoard, player);
+	moveTree->GenerateTree(depth, player);
+	//cout << "Tree's total value is currently: " << moveTree->CalculateValue() << endl;
+	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
 	{
-		//create a copy of the current board
-		Board nextBoard = Board(board);
-		//see if the move is valid
-		int nextMove = nextBoard.MovePile(i,player);
-		if ( nextMove== -1)
+		
+		double outcome = moveTree->subNodes[i]->CalculateValue();
+		cout << "Spot " << moveTree->subNodes[i]->tileToGetHere << "'s value is " << outcome << endl;
+		//if move option is best so far
+		if (outcome > bestOutcome)
 		{
-			//if move is invalid
-			continue;
-		}
-		if (nextMove == 0)
-		{
-			//if move is valid, add subBoard to tree
-			result->AddNode(new BoardNode(nextBoard, player));
-		}
-		if (nextMove == 1)
-		{
-			//TODO
-			//If move results in another turn
-			throw "Got another turn. Not yet implemented.";
-		}
-		if (nextMove == 2)
-		{
-			//TODO
-			//If move results in game over
-			throw "Game over. Not yet implemented.";
+			bestOutcome = outcome;
+			bestPile = moveTree->subNodes[i]->tileToGetHere;
 		}
 	}
+	if (bestPile == -1)
+	{
+		cout << "Error, no valid moves to take.";
+		return -1;
+	}
+	cout << "Best move is " << bestPile << endl;
+	cout << "Current tree: " << endl;
 
-
-
+	//this will print out the move tree if uncommented
+	/*
+	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
+	{
+		moveTree->subNodes[i]->PrintTree(1);
+		
+	}
+	*/
+	delete moveTree;
+	return bestPile;
 }
+
+
 

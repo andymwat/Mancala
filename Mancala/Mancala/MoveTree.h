@@ -1,10 +1,9 @@
 //
 // Created by andrew on 10/25/18.
 //
+#pragma once
 #include "Board.h"
 #include <vector>
-#ifndef MANCALA_MOVETREE_H
-#define MANCALA_MOVETREE_H
 
 using namespace std;
 
@@ -26,11 +25,15 @@ struct BoardNode
     double CalculateValue();
     //Add a node to the list
     void AddNode(BoardNode *);
-
+	//Generates a tree with a defined depth
+	void GenerateTree(int, int);
     BoardNode(Board, int);
     ~BoardNode();
+	//What tile had to be moved to get to this state
+	int tileToGetHere = -1;
+	//Prints out the current game tree
+	void PrintTree(int);
+
 };
 
 
-
-#endif //MANCALA_MOVETREE_H
