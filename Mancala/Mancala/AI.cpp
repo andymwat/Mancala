@@ -12,6 +12,8 @@ AI::AI()
 AI::~AI()
 {
 }
+//DEPRECATED
+//DO NOT USE
 int AI::FindBestMove(Board& board, int player)
 {
 	//goes through each pile and determines which move will give the AI the best board
@@ -74,9 +76,9 @@ int AI::FindBestMove(Board& board, int player)
 int AI::SearchMoveTree(Board& currentBoard, int player, int depth)
 {
 	int bestPile = -1;
-	double bestOutcome = 0.0;
+	double bestOutcome = -100000;
 	BoardNode * moveTree = new BoardNode(currentBoard, player);
-	moveTree->GenerateTree(depth, player);
+	moveTree->GenerateTree(depth, player, player);
 	//cout << "Tree's total value is currently: " << moveTree->CalculateValue() << endl;
 	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
 	{
@@ -92,14 +94,27 @@ int AI::SearchMoveTree(Board& currentBoard, int player, int depth)
 	}
 	if (bestPile == -1)
 	{
+		//choose the only remaining move and take it
+		if (!(currentBoard.GameIsOver()))
+		{
+			for (int i = (player*7) -6; i< (player * 7); i++)
+			{
+				if (currentBoard.holes[i] != 0)
+				{
+					return i;
+				}
+			}
+		}
+
 		cout << "Error, no valid moves to take.";
 		return -1;
 	}
 	cout << "Best move is " << bestPile << endl;
-	cout << "Current tree: " << endl;
+	
 
 	//this will print out the move tree if uncommented
 	/*
+	 *cout << "Current tree: " << endl;
 	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
 	{
 		moveTree->subNodes[i]->PrintTree(1);

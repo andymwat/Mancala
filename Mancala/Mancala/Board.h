@@ -9,5 +9,6 @@ public:
 	int MovePile(int, int);
 	double GetBoardValue(int);
 	bool GameIsOver();
+	double GetBoardValueOld(int);
 };
 

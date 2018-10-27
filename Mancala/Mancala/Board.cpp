@@ -124,11 +124,9 @@ int Board::MovePile(int slot, int player)
 }
 
 //Returns the value of the current board from the perspective of a specified player.
-//Returns between 1.0 and 0.0, with higher values corresponding to a more valuable board.
-//1.0 means the game is won or is guaranteed to be won, while 0.0 means that the game is guaranteed to be lost.
-double Board::GetBoardValue(int player)
+//Returns 0.0 for even game, negative for a worse board, positive for a better board
+double Board::GetBoardValueOld(int player)
 {
-	//TODO
 	if (player == 1)
 	{
 		//if enemy slot is empty
@@ -158,6 +156,57 @@ double Board::GetBoardValue(int player)
 		return ((double)holes[0] / holes[7]);
 	}
 	
+}
+
+//Returns the value of the current board from the perspective of a specified player.
+//Returns 0.0 for even game, negative for a worse board, positive for a better board
+double Board::GetBoardValue(int player)
+{
+	//if game is over
+	if (GameIsOver())
+	{
+		if (player == 1)
+		{
+			if (holes[7] > holes[0])
+			{
+				return 5.0;
+			}
+			else if (holes[7] < holes[0])
+			{
+				return -5.0;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			if (holes[7] < holes[0])
+			{
+				return 5.0;
+			}
+			else if (holes[7] > holes[0])
+			{
+				return -5.0;
+			}
+			else
+			{
+				return 0;
+			}
+			
+		}
+	}
+
+	if (player == 1)
+	{
+		return holes[7] - holes[0];
+	}
+	else
+	{
+		return holes[0] - holes[7];
+	}
+
 }
 
 //Returns whether or not the game is over.

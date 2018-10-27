@@ -42,7 +42,8 @@ void BoardNode::AddNode(BoardNode * boardToAdd) {
     subNodes.push_back(boardToAdd);
     numberOfNodes++;
 }
-void BoardNode::GenerateTree(int depth, int player)
+//generates a tree for a node. InitialPlayer is only used for calculating the value of a game ending board
+void BoardNode::GenerateTree(int depth, int player, int initialPlayer)
 {
 	//if end of tree
 	if (depth == 0)
@@ -67,10 +68,10 @@ void BoardNode::GenerateTree(int depth, int player)
 				newPlayer = 1;
 			}
 			
-			BoardNode* newNode = new BoardNode(nextBoard, player);
+			BoardNode* newNode = new BoardNode(nextBoard, newPlayer);
 
 			//generate a tree based on all of possible opponent's moves
-			newNode->GenerateTree(depth - 1, newPlayer);
+			newNode->GenerateTree(depth - 1, newPlayer, initialPlayer);
 			newNode->tileToGetHere = i;
 			this->AddNode(newNode);
 		}
@@ -81,13 +82,16 @@ void BoardNode::GenerateTree(int depth, int player)
 			BoardNode* newNode = new BoardNode(nextBoard, player);
 
 			//generate a tree based on all of possible next moves
-			newNode->GenerateTree(depth - 1, player);
+			newNode->GenerateTree(depth - 1, player, initialPlayer);
 			newNode->tileToGetHere = i;
 			this->AddNode(newNode);
 		}
-		//if game would be over, dont generate more subnodes
+		//if game would be over, add next node, but don't generate more subnodes.
 		else if (nextMove == 2)
 		{
+			BoardNode* newNode = new BoardNode(nextBoard, initialPlayer);
+			newNode->tileToGetHere = i;
+			this->AddNode(newNode);
 			return;
 		}
 	}

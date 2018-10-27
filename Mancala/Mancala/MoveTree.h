@@ -26,7 +26,7 @@ struct BoardNode
     //Add a node to the list
     void AddNode(BoardNode *);
 	//Generates a tree with a defined depth
-	void GenerateTree(int, int);
+	void GenerateTree(int, int, int);
     BoardNode(Board, int);
     ~BoardNode();
 	//What tile had to be moved to get to this state
