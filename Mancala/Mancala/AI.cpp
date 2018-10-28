@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+bool debug = true;
+
 AI::AI()
 {
 }
@@ -77,14 +79,17 @@ int AI::SearchMoveTree(Board& currentBoard, int player, int depth)
 {
 	int bestPile = -1;
 	double bestOutcome = -100000;
-	BoardNode * moveTree = new BoardNode(currentBoard, player);
+	BoardNode * moveTree = new BoardNode(currentBoard, player, player);
 	moveTree->GenerateTree(depth, player, player);
 	//cout << "Tree's total value is currently: " << moveTree->CalculateValue() << endl;
 	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
 	{
 		
 		double outcome = moveTree->subNodes[i]->CalculateValue();
-		cout << "Spot " << moveTree->subNodes[i]->tileToGetHere << "'s value is " << outcome << endl;
+		if (debug)
+		{
+			cout << "Spot " << moveTree->subNodes[i]->tileToGetHere << "'s value is " << outcome << endl;
+		}
 		//if move option is best so far
 		if (outcome > bestOutcome)
 		{
@@ -109,16 +114,20 @@ int AI::SearchMoveTree(Board& currentBoard, int player, int depth)
 		cout << "Error, no valid moves to take.";
 		return -1;
 	}
-	cout << "Best move is " << bestPile << endl;
+	if (debug)
+	{
+		cout << "Best move is " << bestPile << endl;
+	}
+	
 	
 
 	//this will print out the move tree if uncommented
 	/*
-	 *cout << "Current tree: " << endl;
-	for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
+	 cout << "Current tree: " << endl;
+	
+	 for (unsigned int i = 0; i < moveTree->numberOfNodes; i++)
 	{
 		moveTree->subNodes[i]->PrintTree(1);
-		
 	}
 	*/
 	delete moveTree;

@@ -27,12 +27,14 @@ struct BoardNode
     void AddNode(BoardNode *);
 	//Generates a tree with a defined depth
 	void GenerateTree(int, int, int);
-    BoardNode(Board, int);
+    BoardNode(Board, int, int);
     ~BoardNode();
 	//What tile had to be moved to get to this state
 	int tileToGetHere = -1;
 	//Prints out the current game tree
 	void PrintTree(int);
+
+	int initialPlayer;
 
 };
 
