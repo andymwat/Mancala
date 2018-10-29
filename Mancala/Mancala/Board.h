@@ -10,5 +10,7 @@ public:
 	double GetBoardValue(int);
 	bool GameIsOver();
 	double GetBoardValueOld(int);
+	int TotalPiecesLeft();
+	int SlotsOpen();
 };
 

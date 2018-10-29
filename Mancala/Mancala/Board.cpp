@@ -232,4 +232,35 @@ bool Board::GameIsOver()
 	return false;
 }
 
+int Board::TotalPiecesLeft()
+{
+	int total = 0;
+	for (int i = 0; i<14; i++)
+	{
+		if (i != 7)
+		{
+			total += holes[i];
+		}
+		
+	}
+	return total;
+}
+int Board::SlotsOpen()
+{
+	int total = 0;
+	for (int i = 0; i < 14; i++)
+	{
+		if (i != 7)
+		{
+			if (holes[i] == 0)
+			{
+				total++;
+			}
+		}
+
+	}
+	return total;
+}
+
+
 

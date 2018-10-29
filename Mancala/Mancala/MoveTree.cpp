@@ -26,7 +26,6 @@ double BoardNode::CalculateValue() {
     //if this is the last node, simply return the board value
     if (numberOfNodes == 0)
     {
-	
         return currentBoard.GetBoardValue(initialPlayer);
     }
     //otherwise, return the average value of the subnodes
