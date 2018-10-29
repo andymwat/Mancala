@@ -84,6 +84,8 @@ int Board::MovePile(int slot, int player)
 		else
 		{
 			currentSlot++;
+			holes[currentSlot]++;
+			piecesInHand--;
 		}
 		
 	}
